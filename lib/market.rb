@@ -22,4 +22,24 @@ class Market
     end
   end
 
+  def sorted_item_list
+    items = []
+    vendors.each do |vendor|
+      vendor.inventory.each do |item, quantity|
+        items << item
+      end
+    end
+    items.uniq.sort
+  end
+
+  def total_inventory
+    total_inventory = Hash.new {|hash, key| hash[key] = 0}
+    vendors.each do |vendor|
+      vendor.inventory.each do |item, quantity|
+        total_inventory[item] += quantity
+      end
+    end
+    total_inventory
+  end
+
 end
